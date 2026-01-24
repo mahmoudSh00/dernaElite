@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>نسخة تجريبية ثابتة - نظام المبيعات (مباشر)</title>
+<style>
+:root{--bg:#f5f7fb;--card:#fff;--accent:#2563eb;--muted:#667085}
+*{box-sizing:border-box}
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial;direction:rtl;background:var(--bg);margin:0;color:#0f172a}
+.app-wrap{display:flex;min-height:100vh}
+.sidebar{width:220px;background:#fff;padding:18px;border-right:1px solid #eef2ff}
+.brand{font-weight:700;margin-bottom:8px}
+.sidebar ul{list-style:none;padding:0}
+.sidebar a{display:block;padding:8px 6px;color:#0f172a;text-decoration:none;border-radius:6px;cursor:pointer}
+.content{flex:1;padding:20px}
+.card{background:var(--card);padding:18px;border-radius:10px;box-shadow:0 6px 18px rgba(15,23,42,0.06);margin-bottom:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px}
+.big{font-size:28px;font-weight:700}
+.list{width:100%;border-collapse:collapse}
+.list th,.list td{padding:8px;border-bottom:1px solid #eef2ff;text-align:right}
+input,textarea,select{width:100%;padding:9px;border:1px solid #e6eef8;border-radius:6px}
+.btn{background:var(--accent);color:#fff;padding:8px 12px;border:none;border-radius:8px;cursor:pointer}
+.hidden{display:none}
+.login-full{display:flex;align-items:center;justify-content:center;height:100vh}
+.alert{padding:8px;margin-bottom:10px;border-radius:6px}
+.alert.err{background:#fee2e2;color:#991b1b}
+.alert.ok{background:#dcfce7;color:#065f46}
+small{color:var(--muted)}
+.item-row{display:flex;gap:8px;align-items:center;margin-bottom:6px}
+.item-row select,input{flex:1}
+.remove{background:#ef4444;color:#fff;border:none;padding:6px 8px;border-radius:6px}
+@media(max-width:900px){.sidebar{display:none}}
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="loginView" class="login-full">
+    <div class="card" style="width:360px;text-align:center">
+      <h2>تجربة النظام (ثابت)</h2>
+      <div id="loginErr" class="alert err hidden"></div>
+      <div style="text-align:right">
+        <label>اسم المستخدم<input id="username" value="moatasem"></label>
+        <label>كلمة المرور<input id="password" type="password" value="2002200233"></label>
+        <button id="loginBtn" class="btn">دخول</button>
+        <div class="muted">مستخدم تجريبي: moatasem / 2002200233</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="mainApp" class="app-wrap hidden">
+    <nav class="sidebar">
+      <div class="brand">مبيعات &amp; مخازن - Demo</div>
+      <div id="userInfo" style="margin-bottom:12px"></div>
+      <ul>
+        <li><a data-view="dashboard">لوحة التحكم</a></li>
+        <li><a data-view="users">المستخدمون</a></li>
+        <li><a data-view="items">الأصناف</a></li>
+        <li><a data-view="transactions">العمليات</a></li>
+        <li><a data-view="reports">التقارير</a></li>
+        <li><a id="logoutBtn">تسجيل الخروج</a></li>
+      </ul>
+    </nav>
+    <main class="content">
+      <div id="dashboard" class="view">
+        <h2>لوحة التحكم</h2>
+        <section class="grid">
+          <div class="card"><h3>المستخدمون</h3><div id="statUsers" class="big">0</div></div>
+          <div class="card"><h3>الأصناف</h3><div id="statItems" class="big">0</div></div>
+          <div class="card"><h3>العمليات</h3><div id="statTx" class="big">0</div></div>
+        </section>
+      </div>
+
+      <div id="users" class="view hidden">
+        <h2>المستخدمون</h2>
+        <div class="card">
+          <h3>قائمة المستخدمين</h3>
+          <table class="list" id="usersTable"><tr><th>اسم</th><th>صلاحية</th></tr></table>
+        </div>
+      </div>
+
+      <div id="items" class="view hidden">
+        <h2>الأصناف</h2>
+        <div class="card">
+          <h3>إضافة صنف</h3>
+          <label>الاسم<input id="itemName"></label>
+          <label>SKU<input id="itemSKU"></label>
+          <label>السعر<input id="itemPrice" type="number" value="0"></label>
+          <label>الكمية<input id="itemStock" type="number" value="0"></label>
+          <button id="addItemBtn2" class="btn">إضافة</button>
+          <small>البيانات مخزنة محلياً في المتصفح (localStorage)</small>
+        </div>
+        <div class="card">
+          <h3>قائمة الأصناف</h3>
+          <table class="list" id="itemsTable"><tr><th>id</th><th>SKU</th><th>اسم</th><th>سعر</th><th>المخزون</th></tr></table>
+        </div>
+      </div>
+
+      <div id="transactions" class="view hidden">
+        <h2>العمليات</h2>
+        <div class="card">
+          <h3>تنفيذ عملية</h3>
+          <label>نوع العملية<select id="txType"><option value="sell">بيع</option><option value="purchase">شراء</option></select></label>
+          <div id="itemsContainer"></div>
+          <button id="addRowBtn" class="btn">إضافة صنف</button>
+          <button id="execTxBtn" class="btn" style="margin-left:8px">تنفيذ</button>
+          <div id="txMsg" class="alert hidden" style="margin-top:8px"></div>
+        </div>
+        <div class="card">
+          <h3>آخر العمليات</h3>
+          <table class="list" id="txTable"><tr><th>id</th><th>نوع</th><th>المجموع</th><th>تاريخ</th></tr></table>
+        </div>
+      </div>
+
+      <div id="reports" class="view hidden">
+        <h2>التقارير</h2>
+        <div class="card">
+          <label>من<input id="repFrom" type="date"></label>
+          <label>إلى<input id="repTo" type="date"></label>
+          <button id="runRep" class="btn">عرض</button>
+          <button id="printRep" class="btn" style="margin-left:8px">طباعة</button>
+        </div>
+        <div class="card">
+          <h3>النتائج</h3>
+          <table class="list" id="repTable"><tr><th>id</th><th>نوع</th><th>المجموع</th><th>تاريخ</th></tr></table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<script>
+// Demo static app using localStorage
+const STORAGE = 'sales_demo_v1';
+function loadState(){
+  const s = localStorage.getItem(STORAGE);
+  if (s) return JSON.parse(s);
+  const init = {
+    users: [{username:'moatasem', password:'2002200233', role:'admin'}],
+    items: [{id:1,sku:'SKU001',name:'عينة 1',price:10,stock:20},{id:2,sku:'SKU002',name:'عينة 2',price:5,stock:50}],
+    transactions: []
+  };
+  localStorage.setItem(STORAGE, JSON.stringify(init));
+  return init;
+}
+function saveState(st){ localStorage.setItem(STORAGE, JSON.stringify(st)); }
+let state = loadState();
+let currentUser = null;
+
+// Views
+function showView(v){ document.querySelectorAll('.view').forEach(el=>el.classList.add('hidden')); document.getElementById(v).classList.remove('hidden'); }
+
+document.getElementById('loginBtn').addEventListener('click', ()=>{
+  const u = document.getElementById('username').value.trim();
+  const p = document.getElementById('password').value;
+  const found = state.users.find(x=>x.username===u && x.password===p);
+  const err = document.getElementById('loginErr');
+  if (!found) { err.textContent='اسم المستخدم أو كلمة المرور غير صحيحة'; err.classList.remove('hidden'); return; }
+  currentUser = found; document.getElementById('loginView').classList.add('hidden'); document.getElementById('mainApp').classList.remove('hidden');
+  document.getElementById('userInfo').textContent = 'مستخدم: ' + currentUser.username + ' ('+currentUser.role+')';
+  renderAll();
+});
+
+document.getElementById('logoutBtn').addEventListener('click', ()=>{ location.reload(); });
+
+document.querySelectorAll('.sidebar a[data-view]').forEach(a=>a.addEventListener('click', (e)=>{ showView(e.target.getAttribute('data-view')); }));
+
+function renderAll(){
+  document.getElementById('statUsers').textContent = state.users.length;
+  document.getElementById('statItems').textContent = state.items.length;
+  document.getElementById('statTx').textContent = state.transactions.length;
+  // users table
+  const ut = document.getElementById('usersTable'); ut.innerHTML='<tr><th>اسم</th><th>صلاحية</th></tr>' + state.users.map(u=>`<tr><td>${u.username}</td><td>${u.role}</td></tr>`).join('');
+  // items table
+  const it = document.getElementById('itemsTable'); it.innerHTML='<tr><th>id</th><th>SKU</th><th>اسم</th><th>سعر</th><th>المخزون</th></tr>' + state.items.map(i=>`<tr><td>${i.id}</td><td>${i.sku||''}</td><td>${i.name}</td><td>${i.price}</td><td>${i.stock}</td></tr>`).join('');
+  // tx table
+  const tt = document.getElementById('txTable'); tt.innerHTML='<tr><th>id</th><th>نوع</th><th>المجموع</th><th>تاريخ</th></tr>' + state.transactions.slice().reverse().map(t=>`<tr><td>${t.id}</td><td>${t.type}</td><td>${t.total}</td><td>${t.date}</td></tr>`).join('');
+}
+
+// add item
+document.getElementById('addItemBtn2').addEventListener('click', ()=>{
+  const name = document.getElementById('itemName').value.trim();
+  if (!name) return alert('الرجاء ادخال اسم الصنف');
+  const sku = document.getElementById('itemSKU').value.trim();
+  const price = parseFloat(document.getElementById('itemPrice').value)||0; const stock = parseInt(document.getElementById('itemStock').value)||0;
+  const id = (state.items.reduce((m,i)=>Math.max(m,i.id),0) + 1)||1;
+  state.items.push({id,sku,name,price,stock}); saveState(state); renderAll();
+});
+
+// transactions UI
+const itemsContainer = document.getElementById('itemsContainer');
+function addItemRow(){
+  const div = document.createElement('div'); div.className='item-row card';
+  const sel = document.createElement('select'); state.items.forEach(it=>{ const op=document.createElement('option'); op.value=it.id; op.textContent=it.name+' ('+it.stock+')'; op.dataset.price=it.price; sel.appendChild(op); });
+  const qty = document.createElement('input'); qty.type='number'; qty.value=1; qty.min=1; qty.style.width='80px';
+  const price = document.createElement('input'); price.type='number'; price.value=(sel.selectedOptions[0]?sel.selectedOptions[0].dataset.price:0); price.step='0.01'; price.style.width='100px';
+  const rem = document.createElement('button'); rem.className='remove'; rem.textContent='✕'; rem.addEventListener('click', ()=>div.remove());
+  sel.addEventListener('change', ()=>{ price.value = sel.selectedOptions[0].dataset.price; });
+  div.appendChild(sel); div.appendChild(qty); div.appendChild(price); div.appendChild(rem); itemsContainer.appendChild(div);
+}
+
+document.getElementById('addRowBtn').addEventListener('click', addItemRow);
+addItemRow();
+
+document.getElementById('execTxBtn').addEventListener('click', ()=>{
+  const type = document.getElementById('txType').value; const rows = Array.from(itemsContainer.querySelectorAll('.item-row'));
+  const txMsg = document.getElementById('txMsg'); txMsg.classList.add('hidden');
+  const items = [];
+  try{
+    rows.forEach(r=>{ const id=parseInt(r.querySelector('select').value); const qty=parseInt(r.querySelector('input[type=number]').value); const price=parseFloat(r.querySelector('input[type=number]:not([style])')?.value||r.querySelector('input[type=number]').value); if(qty<=0) throw 'كمية غير صالحة'; items.push({id,qty,price}); });
+    // validate and apply
+    let total=0; items.forEach(it=>{ const itData = state.items.find(x=>x.id===it.id); if(!itData) throw 'صنف غير موجود'; if(type==='sell' && itData.stock < it.qty) throw 'المخزون غير كافٍ للصنف: '+itData.name; total += it.qty * it.price; });
+    const id = (state.transactions.reduce((m,t)=>Math.max(m,t.id),0)+1)||1; const date = new Date().toLocaleString();
+    state.transactions.push({id,type,items,total,date,user:currentUser.username});
+    // update stock
+    state.items.forEach(itm=>{ const found = items.find(x=>x.id===itm.id); if(found){ itm.stock += (type==='purchase'?found.qty:-found.qty); if(itm.stock<0) itm.stock=0; } });
+    saveState(state); renderAll(); txMsg.textContent='تم تنفيذ العملية ('+id+')'; txMsg.className='alert ok'; txMsg.classList.remove('hidden');
+  }catch(ex){ txMsg.textContent=ex; txMsg.className='alert err'; txMsg.classList.remove('hidden'); }
+});
+
+// reports
+document.getElementById('runRep').addEventListener('click', ()=>{
+  const from = document.getElementById('repFrom').value; const to = document.getElementById('repTo').value;
+  const rows = state.transactions.filter(t=>{
+    if (from && new Date(t.date) < new Date(from)) return false;
+    if (to && new Date(t.date) > new Date(to+'T23:59:59')) return false;
+    return true;
+  });
+  const rt = document.getElementById('repTable'); rt.innerHTML='<tr><th>id</th><th>نوع</th><th>المجموع</th><th>تاريخ</th></tr>'+rows.map(r=>`<tr><td>${r.id}</td><td>${r.type}</td><td>${r.total}</td><td>${r.date}</td></tr>`).join('');
+});
+
+document.getElementById('printRep').addEventListener('click', ()=>{ window.print(); });
+
+// Auto-login: sign in with first demo user and show app immediately
+currentUser = state.users[0];
+if (currentUser) {
+  document.getElementById('loginView').classList.add('hidden');
+  document.getElementById('mainApp').classList.remove('hidden');
+  document.getElementById('userInfo').textContent = 'مستخدم: ' + currentUser.username + ' ('+currentUser.role+')';
+}
+
+renderAll(); showView('dashboard');
+</script>
+</body>
+</html>
