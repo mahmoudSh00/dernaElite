@@ -16,18 +16,18 @@
     <style>
       /* إعدادات عامة وخطوط وألوان */
       :root {
-        --bg: #0f172a;
-        --bg-soft: #111827;
-        --card: #1f2937;
-        --card-2: #374151;
-        --text: #f3f4f6;
-        --text-dim: #cbd5e1;
-        --primary: #22c55e;
-        --primary-2: #16a34a;
-        --accent: #06b6d4;
-        --warn: #f59e0b;
-        --danger: #ef4444;
-        --muted: #64748b;
+        --bg: #0b1020;
+        --bg-soft: #10162b;
+        --card: #162036;
+        --card-2: #1c2742;
+        --text: #e6f1ff;
+        --text-dim: #b7c5d8;
+        --primary: #00e19c;
+        --primary-2: #00c389;
+        --accent: #4cc9f0;
+        --warn: #f5a524;
+        --danger: #ef476f;
+        --muted: #7c8ea3;
       }
       * { box-sizing: border-box; }
       html, body { height: 100%; background: var(--bg); color: var(--text); font-family: "Segoe UI", Tahoma, sans-serif; }
@@ -45,19 +45,22 @@
       .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
       .card-title { font-weight: 700; font-size: 16px; }
       .muted { color: var(--text-dim); }
-      .btn { background: var(--primary); color: #000; border: none; border-radius: 10px; padding: 10px 14px; font-weight: 700; }
+      .btn { background: var(--primary); color: #001018; border: none; border-radius: 12px; padding: 10px 14px; font-weight: 800; transition: transform 120ms ease, background 160ms ease, box-shadow 160ms ease; }
       .btn.secondary { background: var(--accent); color: #002b36; }
       .btn.warn { background: var(--warn); color: #000; }
       .btn.danger { background: var(--danger); color: #fff; }
       .btn.muted { background: var(--muted); color: #fff; }
       .btn.icon { display: inline-flex; align-items: center; gap: 8px; }
+      .btn:hover { transform: translateY(-1px); box-shadow: 0 8px 16px rgba(0,0,0,0.25); }
+      .btn:active { transform: translateY(0); }
       .input, select, textarea { width: 100%; padding: 10px 12px; border: 1px solid #334155; border-radius: 10px; background: var(--card-2); color: var(--text); }
       .input::placeholder { color: var(--text-dim); }
       .toolbar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
       .list { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
       .list .item { background: var(--card-2); border-radius: 12px; padding: 10px; display: flex; flex-direction: column; gap: 8px; }
       .nav { display: flex; gap: 8px; overflow-x: auto; padding: 8px; background: var(--bg-soft); position: sticky; top: 0; z-index: 10; }
-      .nav .tab { padding: 10px 14px; border-radius: 10px; background: #1e293b; color: #cbd5e1; font-weight: 700; white-space: nowrap; }
+      .nav .tab { padding: 10px 14px; border-radius: 12px; background: #1a243d; color: var(--text-dim); font-weight: 800; white-space: nowrap; transition: background 160ms ease, color 160ms ease, transform 120ms ease; }
+      .nav .tab:hover { transform: translateY(-1px); background: #223054; color: var(--text); }
       .nav .tab.active { background: var(--primary); color: #002b36; }
       .header { display: flex; justify-content: space-between; align-items: center; padding: 12px; background: var(--bg-soft); }
       .brand { font-weight: 900; font-size: 18px; display: flex; align-items: center; gap: 8px; }
@@ -506,7 +509,7 @@
 
       /* قاعدة بيانات: IndexedDB مع بديل LocalStorage */
       const DB_NAME = 'offline-pos';
-      const DB_VERSION = 1;
+      const DB_VERSION = 2;
       const STORES = ['users','products','transactions','accounts','settings'];
       let dbRef = null;
 
@@ -525,6 +528,9 @@
                 db.createObjectStore(s, { keyPath: 'id', autoIncrement: true });
               }
             });
+            if (!db.objectStoreNames.contains('blobs')) {
+              db.createObjectStore('blobs', { keyPath: 'id', autoIncrement: true });
+            }
           };
           req.onsuccess = () => resolve(req.result);
           req.onerror = () => resolve(null);
@@ -607,7 +613,7 @@
         const role = currentUser?.role || 'cashier';
         const allowed = {
           manager: ['dashboard','products','pos','purchase','inventory','accounts','reports','users','settings'],
-          employee: ['dashboard','products','pos','purchase','inventory','accounts','reports'],
+          employee: ['dashboard','pos','reports'],
           cashier: ['dashboard','pos']
         }[role];
         $$('#navTabs .tab').forEach(t => {
@@ -615,6 +621,13 @@
           t.classList.toggle('hidden', !allowed.includes(v));
         });
         showView(allowed[0] || 'dashboard');
+        updatePermissionsUI();
+      }
+      function updatePermissionsUI() {
+        const isManager = currentUser?.role === 'manager';
+        $('#btnAddProduct')?.classList.toggle('hidden', !isManager);
+        $('#btnNewPurchase')?.classList.toggle('hidden', !isManager);
+        $('#btnAddAcc')?.classList.toggle('hidden', !isManager);
       }
       async function ensureDefaultUser() {
         const users = await store.all('users');
