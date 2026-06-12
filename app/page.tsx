@@ -33,9 +33,9 @@ const sampleProducts: Product[] = [
   { id: "15", name: "حذاء كلاسيكي", price: 140, image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&h=400&fit=crop", description: "حذاء كلاسيكي أنيق", category: "أحذية", stock: 70 },
   { id: "16", name: "طقم مكتب", price: 480, image: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&h=400&fit=crop", description: "طقم مكتب متكامل", category: "منزلية", stock: 12 },
   { id: "17", name: "حقيبة ظهر مدرسية", price: 65, image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=400&fit=crop", description: "حقيبة ظهر مناسبة للمدرسة", category: "حقائب", stock: 90 },
-  { id": "18", name: "مفارش سرير", price: 110, image: "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=400&h=400&fit=crop", description: "مفارش ناعمة ومريحة", category: "منزلية", stock: 65 },
-  { id": "19", name: "جاكيت جلد", price: 250, image: "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=400&h=400&fit=crop", description: "جاكيت جلد أصلي", category: "ملابس", stock: 25 },
-  { id": "20", name: "حذاء ركض", price: 160, image: "https://images.unsplash.com/photo-1460353581641-37baddab0fa2?w=400&h=400&fit=crop", description: "حذاء ركض مريح", category: "أحذية", stock: 50 },
+  { id: "18", name: "مفارش سرير", price: 110, image: "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=400&h=400&fit=crop", description: "مفارش ناعمة ومريحة", category: "منزلية", stock: 65 },
+  { id: "19", name: "جاكيت جلد", price: 250, image: "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=400&h=400&fit=crop", description: "جاكيت جلد أصلي", category: "ملابس", stock: 25 },
+  { id: "20", name: "حذاء ركض", price: 160, image: "https://images.unsplash.com/photo-1460353581641-37baddab0fa2?w=400&h=400&fit=crop", description: "حذاء ركض مريح", category: "أحذية", stock: 50 },
 ];
 
 export default function HomePage() {
