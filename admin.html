@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="لوحة التحكم - Derna Elite Shopping">
+    <title>لوحة التحكم | Derna Elite Shopping</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-store"></i>
+                Derna Elite Shopping
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">الرئيسية</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="products.html">المنتجات</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">من نحن</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">اتصل بنا</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center gap-3">
+                    <button class="btn btn-outline-light" data-bs-toggle="darkmode" title="الوضع الداكن">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <a href="cart.html" class="btn btn-outline-light position-relative">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-badge">0</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-5">
+        <!-- Login Form -->
+        <div id="loginSection">
+            <div class="row justify-content-center">
+                <div class="col-lg-5">
+                    <div class="checkout-form">
+                        <h3 class="text-center mb-4">
+                            <i class="fas fa-lock me-2"></i>
+                            دخول لوحة التحكم
+                        </h3>
+                        <form id="loginForm">
+                            <div class="mb-3">
+                                <label class="form-label">اسم المستخدم</label>
+                                <input type="text" class="form-control" id="username" required placeholder="اسم المستخدم">
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label">كلمة المرور</label>
+                                <input type="password" class="form-control" id="password" required placeholder="كلمة المرور">
+                            </div>
+                            <button type="submit" class="btn btn-gold w-100">
+                                <i class="fas fa-sign-in-alt me-2"></i>
+                                دخول
+                            </button>
+                        </form>
+                        <div class="text-center mt-3">
+                            <small class="text-muted">
+                                <i class="fas fa-info-circle me-1"></i>
+                                الاسم الافتراضي: admin | كلمة المرور: admin123
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Dashboard -->
+        <div id="adminSection" style="display: none;">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">الرئيسية</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">لوحة التحكم</li>
+                </ol>
+            </nav>
+
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2>لوحة التحكم</h2>
+                <button class="btn btn-outline-danger" onclick="logout()">
+                    <i class="fas fa-sign-out-alt me-2"></i>
+                    تسجيل الخروج
+                </button>
+            </div>
+
+            <div class="row g-4 mb-4">
+                <div class="col-md-3">
+                    <div class="feature-card text-center">
+                        <div class="feature-icon">
+                            <i class="fas fa-box"></i>
+                        </div>
+                        <h4 id="totalProducts">0</h4>
+                        <p>عدد المنتجات</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="feature-card text-center">
+                        <div class="feature-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h4 id="newProducts">0</h4>
+                        <p>منتجات جديدة</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="feature-card text-center">
+                        <div class="feature-icon">
+                            <i class="fas fa-fire"></i>
+                        </div>
+                        <h4 id="bestSellers">0</h4>
+                        <p>الأكثر مبيعاً</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="feature-card text-center">
+                        <div class="feature-icon">
+                            <i class="fas fa-tags"></i>
+                        </div>
+                        <h4 id="onSale">0</h4>
+                        <p>عروض خاصة</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <div class="checkout-form">
+                        <h5 class="mb-4">
+                            <i class="fas fa-plus-circle me-2"></i>
+                            إضافة منتج جديد
+                        </h5>
+                        <form id="addProductForm">
+                            <div class="mb-3">
+                                <label class="form-label">اسم المنتج</label>
+                                <input type="text" class="form-control" id="productName" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">التصنيف</label>
+                                <select class="form-select" id="productCategory" required>
+                                    <option value="">اختر التصنيف</option>
+                                    <option value="ملابس رجالية">ملابس رجالية</option>
+                                    <option value="ملابس نسائية">ملابس نسائية</option>
+                                    <option value="ملابس أطفال">ملابس أطفال</option>
+                                    <option value="أحذية">أحذية</option>
+                                    <option value="حقائب">حقائب</option>
+                                    <option value="إكسسوارات">إكسسوارات</option>
+                                    <option value="عطور">عطور</option>
+                                    <option value="أجهزة إلكترونية">أجهزة إلكترونية</option>
+                                    <option value="مستلزمات منزل">مستلزمات منزل</option>
+                                </select>
+                            </div>
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">السعر (د.ل)</label>
+                                    <input type="number" class="form-control" id="productPrice" required min="0">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">الخصم (%)</label>
+                                    <input type="number" class="form-control" id="productDiscount" min="0" max="95" value="0">
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">وصف المنتج</label>
+                                <textarea class="form-control" id="productDescription" rows="3" required></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">رابط الصورة</label>
+                                <input type="url" class="form-control" id="productImage" required placeholder="https://...">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">التقييم</label>
+                                <input type="number" class="form-control" id="productRating" min="0" max="5" step="0.1" value="4.5">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">عدد التقييمات</label>
+                                <input type="number" class="form-control" id="productReviews" min="0" value="10">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">الألوان (فاصلة بين كل لون)</label>
+                                <input type="text" class="form-control" id="productColors" placeholder="أحمر, أزرق, أخضر">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">المقاسات (فاصلة بين كل مقاس)</label>
+                                <input type="text" class="form-control" id="productSizes" placeholder="S, M, L, XL">
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label">الخصائص</label>
+                                <div class="d-flex gap-3 flex-wrap">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="isNew">
+                                        <label class="form-check-label" for="isNew">جديد</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="isBestSeller">
+                                        <label class="form-check-label" for="isBestSeller">الأكثر مبيعاً</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="isSale">
+                                        <label class="form-check-label" for="isSale">عرض خاص</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-gold w-100">
+                                <i class="fas fa-plus me-2"></i>
+                                إضافة المنتج
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-lg-8">
+                    <div class="checkout-form">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h5>
+                                <i class="fas fa-list me-2"></i>
+                                إدارة المنتجات
+                            </h5>
+                            <button class="btn btn-outline-primary" onclick="exportProducts()">
+                                <i class="fas fa-download me-2"></i>
+                                تصدير المنتجات
+                            </button>
+                        </div>
+
+                        <div class="mb-4">
+                            <input type="text" class="form-control" id="searchProduct" placeholder="البحث عن منتج...">
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>الصورة</th>
+                                        <th>المنتج</th>
+                                        <th>التصنيف</th>
+                                        <th>السعر</th>
+                                        <th>الخصائص</th>
+                                        <th>الإجراءات</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="productsTableBody">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="editProductModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header" style="background: var(--primary-color); color: white;">
+                    <h5 class="modal-title">
+                        <i class="fas fa-edit me-2"></i>
+                        تعديل المنتج
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" style="filter: brightness(0) invert(1);"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editProductForm">
+                        <input type="hidden" id="editProductId">
+                        <div class="row g-3">
+                            <div class="col-md-12">
+                                <label class="form-label">اسم المنتج</label>
+                                <input type="text" class="form-control" id="editProductName" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">التصنيف</label>
+                                <select class="form-select" id="editProductCategory" required>
+                                    <option value="ملابس رجالية">ملابس رجالية</option>
+                                    <option value="ملابس نسائية">ملابس نسائية</option>
+                                    <option value="ملابس أطفال">ملابس أطفال</option>
+                                    <option value="أحذية">أحذية</option>
+                                    <option value="حقائب">حقائب</option>
+                                    <option value="إكسسوارات">إكسسوارات</option>
+                                    <option value="عطور">عطور</option>
+                                    <option value="أجهزة إلكترونية">أجهزة إلكترونية</option>
+                                    <option value="مستلزمات منزل">مستلزمات منزل</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">السعر (د.ل)</label>
+                                <input type="number" class="form-control" id="editProductPrice" required min="0">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">الخصم (%)</label>
+                                <input type="number" class="form-control" id="editProductDiscount" min="0" max="95">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">التقييم</label>
+                                <input type="number" class="form-control" id="editProductRating" min="0" max="5" step="0.1">
+                            </div>
+                            <div class="col-md-12">
+                                <label class="form-label">وصف المنتج</label>
+                                <textarea class="form-control" id="editProductDescription" rows="3"></textarea>
+                            </div>
+                            <div class="col-md-12">
+                                <label class="form-label">رابط الصورة</label>
+                                <input type="url" class="form-control" id="editProductImage">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">الألوان</label>
+                                <input type="text" class="form-control" id="editProductColors">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">المقاسات</label>
+                                <input type="text" class="form-control" id="editProductSizes">
+                            </div>
+                            <div class="col-md-12">
+                                <div class="d-flex gap-3 flex-wrap">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="editIsNew">
+                                        <label class="form-check-label" for="editIsNew">جديد</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="editIsBestSeller">
+                                        <label class="form-check-label" for="editIsBestSeller">الأكثر مبيعاً</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="editIsSale">
+                                        <label class="form-check-label" for="editIsSale">عرض خاص</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                    <button type="button" class="btn btn-gold" onclick="saveEditProduct()">حفظ التغييرات</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom text-center pt-4">
+                <p class="text-white-50 mb-0">© 2025 Derna Elite Shopping - لوحة التحكم. جميع الحقوق محفوظة</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>

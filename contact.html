@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="اتصل بنا - Derna Elite Shopping">
+    <title>اتصل بنا | Derna Elite Shopping</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-store"></i>
+                Derna Elite Shopping
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">الرئيسية</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="products.html">المنتجات</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">من نحن</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="contact.html">اتصل بنا</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="admin.html">
+                            <i class="fas fa-cog me-1"></i>
+                            لوحة التحكم
+                        </a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center gap-3">
+                    <button class="btn btn-outline-light" data-bs-toggle="darkmode" title="الوضع الداكن">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <a href="cart.html" class="btn btn-outline-light position-relative">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-badge">0</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-5">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">الرئيسية</a></li>
+                <li class="breadcrumb-item active" aria-current="page">اتصل بنا</li>
+            </ol>
+        </nav>
+
+        <div class="row g-4">
+            <div class="col-lg-4">
+                <div class="contact-info-card">
+                    <div class="contact-info-item">
+                        <div class="contact-info-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-info-text">
+                            <h6>العنوان</h6>
+                            <p>درنة - ليبيا</p>
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <div class="contact-info-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-info-text">
+                            <h6>الهاتف</h6>
+                            <p><a href="tel:+218920719250" class="text-white">+218 920 719 250</a></p>
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <div class="contact-info-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-info-text">
+                            <h6>البريد الإلكتروني</h6>
+                            <p><a href="mailto:info@derna-elite.com" class="text-white">info@derna-elite.com</a></p>
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <div class="contact-info-icon">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <div class="contact-info-text">
+                            <h6>واتساب</h6>
+                            <p><a href="https://wa.me/218920719250" target="_blank" class="text-white">+218 920 719 250</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="checkout-form">
+                    <h5 class="mb-4">أرسل لنا رسالة</h5>
+                    <form id="contactForm">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">الاسم الكامل</label>
+                                <input type="text" class="form-control" id="contactName" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">البريد الإلكتروني</label>
+                                <input type="email" class="form-control" id="contactEmail" required>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">الموضوع</label>
+                                <input type="text" class="form-control" id="contactSubject" required>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">الرسالة</label>
+                                <textarea class="form-control" id="contactMessage" rows="5" required></textarea>
+                            </div>
+                            <div class="col-12 mt-4">
+                                <button type="submit" class="btn btn-gold btn-lg w-100">
+                                    <i class="fas fa-paper-plane me-2"></i>
+                                    إرسال الرسالة
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <h5>Derna Elite Shopping</h5>
+                    <p class="text-white-50">متجر إلكتروني راق يقدم أفضل المنتجات بأسعار مميزة</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <h5>روابط سريعة</h5>
+                    <ul class="footer-links">
+                        <li><a href="index.html">الرئيسية</a></li>
+                        <li><a href="products.html">المنتجات</a></li>
+                        <li><a href="about.html">من نحن</a></li>
+                        <li><a href="contact.html">اتصل بنا</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <h5>فئات</h5>
+                    <ul class="footer-links">
+                        <li><a href="products.html?category=ملابس رجالية">ملابس رجالية</a></li>
+                        <li><a href="products.html?category=ملابس نسائية">ملابس نسائية</a></li>
+                        <li><a href="products.html?category=أحذية">أحذية</a></li>
+                        <li><a href="products.html?category=عطور">عطور</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h5>اتصل بنا</h5>
+                    <ul class="footer-links">
+                        <li><a href="tel:+218920719250"><i class="fas fa-phone me-2"></i> 218920719250+</a></li>
+                        <li><a href="mailto:info@derna-elite.com"><i class="fas fa-envelope me-2"></i> info@derna-elite.com</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt me-2"></i> درنة - ليبيا</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom text-center mt-5 pt-4">
+                <p class="text-white-50 mb-0">© 2025 Derna Elite Shopping. جميع الحقوق محفوظة</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('contactForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const name = document.getElementById('contactName').value;
+                const email = document.getElementById('contactEmail').value;
+                const subject = document.getElementById('contactSubject').value;
+                const message = document.getElementById('contactMessage').value;
+                
+                const whatsappMessage = `رسالة جديدة من موقع Derna Elite Shopping\n\nالاسم: ${name}\nالبريد: ${email}\nالموضوع: ${subject}\n\nالرسالة:\n${message}`;
+                const whatsappUrl = `https://wa.me/218920719250?text=${encodeURIComponent(whatsappMessage)}`;
+                
+                showToast('جارٍ توجيهك إلى واتساب...', 'success');
+                
+                setTimeout(() => {
+                    window.open(whatsappUrl, '_blank');
+                }, 1500);
+            });
+        });
+    </script>
+</body>
+</html>

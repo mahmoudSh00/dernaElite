@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="جميع المنتجات - Derna Elite Shopping">
+    <title>المنتجات | Derna Elite Shopping</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-store"></i>
+                Derna Elite Shopping
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">الرئيسية</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="products.html">المنتجات</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">من نحن</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">اتصل بنا</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="admin.html">
+                            <i class="fas fa-cog me-1"></i>
+                            لوحة التحكم
+                        </a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center gap-3">
+                    <button class="btn btn-outline-light" data-bs-toggle="darkmode" title="الوضع الداكن">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <a href="cart.html" class="btn btn-outline-light position-relative">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-badge">0</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-5">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">الرئيسية</a></li>
+                <li class="breadcrumb-item active" aria-current="page">المنتجات</li>
+            </ol>
+        </nav>
+
+        <div class="row g-4">
+            <div class="col-lg-3">
+                <div class="filter-section">
+                    <div class="input-group mb-4">
+                        <input type="text" class="form-control" id="searchInput" placeholder="ابحث عن منتج...">
+                        <button class="btn btn-primary" type="button">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h5 class="filter-title">الفئات</h5>
+                    <div class="mb-4">
+                        <div class="d-flex flex-wrap gap-2">
+                            <button class="btn btn-primary active" data-category="all">الكل</button>
+                            <button class="btn btn-outline-primary" data-category="ملابس رجالية">رجالي</button>
+                            <button class="btn btn-outline-primary" data-category="ملابس نسائية">نسائي</button>
+                            <button class="btn btn-outline-primary" data-category="ملابس أطفال">أطفال</button>
+                            <button class="btn btn-outline-primary" data-category="أحذية">أحذية</button>
+                            <button class="btn btn-outline-primary" data-category="حقائب">حقائب</button>
+                            <button class="btn btn-outline-primary" data-category="إكسسوارات">إكسسوارات</button>
+                            <button class="btn btn-outline-primary" data-category="عطور">عطور</button>
+                            <button class="btn btn-outline-primary" data-category="أجهزة إلكترونية">إلكترونيات</button>
+                            <button class="btn btn-outline-primary" data-category="مستلزمات منزل">المنزل</button>
+                        </div>
+                    </div>
+
+                    <h5 class="filter-title">السعر</h5>
+                    <div class="mb-4">
+                        <div class="row g-2">
+                            <div class="col-6">
+                                <input type="number" class="form-control price-filter" id="minPrice" placeholder="من" min="0" value="0">
+                            </div>
+                            <div class="col-6">
+                                <input type="number" class="form-control price-filter" id="maxPrice" placeholder="إلى" min="0" value="1000">
+                            </div>
+                        </div>
+                    </div>
+
+                    <h5 class="filter-title">الترتيب</h5>
+                    <select class="form-select mb-4" id="sortSelect">
+                        <option value="default">الترتيب الافتراضي</option>
+                        <option value="price-low">الأقل سعراً</option>
+                        <option value="price-high">الأعلى سعراً</option>
+                        <option value="rating">الأعلى تقييماً</option>
+                        <option value="newest">الأحدث</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-lg-9">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h3>جميع المنتجات</h3>
+                    <select class="form-select w-auto d-lg-none" id="mobileSortSelect">
+                        <option value="default">الترتيب الافتراضي</option>
+                        <option value="price-low">الأقل سعراً</option>
+                        <option value="price-high">الأعلى سعراً</option>
+                        <option value="rating">الأعلى تقييماً</option>
+                        <option value="newest">الأحدث</option>
+                    </select>
+                </div>
+                <div class="row g-4" id="allProducts">
+                    <div class="col-12">
+                        <div class="loading">
+                            <div class="spinner"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <h5>Derna Elite Shopping</h5>
+                    <p class="text-white-50">متجر إلكتروني راق يقدم أفضل المنتجات بأسعار مميزة</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <h5>روابط سريعة</h5>
+                    <ul class="footer-links">
+                        <li><a href="index.html">الرئيسية</a></li>
+                        <li><a href="products.html">المنتجات</a></li>
+                        <li><a href="about.html">من نحن</a></li>
+                        <li><a href="contact.html">اتصل بنا</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <h5>فئات</h5>
+                    <ul class="footer-links">
+                        <li><a href="products.html?category=ملابس رجالية">ملابس رجالية</a></li>
+                        <li><a href="products.html?category=ملابس نسائية">ملابس نسائية</a></li>
+                        <li><a href="products.html?category=أحذية">أحذية</a></li>
+                        <li><a href="products.html?category=عطور">عطور</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h5>اتصل بنا</h5>
+                    <ul class="footer-links">
+                        <li><a href="tel:+218920719250"><i class="fas fa-phone me-2"></i> 218920719250+</a></li>
+                        <li><a href="mailto:info@derna-elite.com"><i class="fas fa-envelope me-2"></i> info@derna-elite.com</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt me-2"></i> درنة - ليبيا</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom text-center mt-5 pt-4">
+                <p class="text-white-50 mb-0">© 2025 Derna Elite Shopping. جميع الحقوق محفوظة</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/products.js"></script>
+</body>
+</html>
